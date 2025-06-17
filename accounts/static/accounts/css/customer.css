@@ -1,0 +1,46 @@
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    padding: 15px 20px;
+}
+
+.table th {
+    font-weight: 600;
+    color: #495057;
+    border-top: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.search-box {
+    width: 250px;
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+    }
+}

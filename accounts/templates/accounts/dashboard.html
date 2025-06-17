@@ -1,0 +1,63 @@
+{% extends 'accounts/main.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mt-4 mb-4">Dashboard</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Customers</h5>
+                <p class="card-text display-4">{{ total_customers }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Orders</h5>
+                <p class="card-text display-4">{{ total_orders }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Pending Orders</h5>
+                <p class="card-text display-4">{{ pending_orders }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Recent Orders</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in recent_orders %}
+                    <tr>
+                        <td>{{ order.customer.name }}</td>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.date_created|date:"Y-m-d" }}</td>
+                        <td><span class="badge bg-{{ order.status.color }}">{{ order.status.name }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
