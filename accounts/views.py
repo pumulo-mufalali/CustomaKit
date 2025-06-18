@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .form import OrderForm
+from .form import OrderForm, CustomerForm
  
 
 def dashboard(request):
@@ -17,6 +17,9 @@ def dashboard(request):
   }
   return render(request, 'accounts/dashboard.html', context)
 
+def total_orders(request):
+  total_orders = Order.objects.all()
+  return render(request, 'accounts/total_orders.html', {'total_orders':total_orders})
 
 def customer(request, pk):
   customers = Customer.objects.all()
@@ -56,10 +59,20 @@ def status(request):
 
 def create_order(request):
   form = OrderForm()
-  if request.method == 'post':
-    form = OrderForm(request.post)
+  if request.method == 'POST':
+    form = OrderForm(request.POST)
     if form.is_valid():
       form.save()
       return redirect('/')
     
   return render(request, 'accounts/create_order.html', {'form':form})
+
+def create_customer(request):
+  form = CustomerForm()
+  if request.method == 'POST':
+    form = CustomerForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('customers')
+    
+  return render(request, 'accounts/create_customer.html', {'form':form})

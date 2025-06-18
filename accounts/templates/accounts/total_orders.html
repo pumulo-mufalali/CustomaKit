@@ -1,0 +1,40 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="card mt-4">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Recent Orders</h2>
+            <a class="btn btn-primary" href="{% url 'create_order' %}">
+                <i class="fas fa-plus me-1"></i>Place Order
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in total_orders %}
+                    <tr>
+                        <td><a href="{% url 'customer_detail' order.customer.id %}">{{ order.customer }}</a></td>
+                        <td>{{ order.product }}</td>
+                        <td>{{ order.created_at|date:"Y-m-d" }}</td>
+                        <td>{{ order.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+{% endblock %}

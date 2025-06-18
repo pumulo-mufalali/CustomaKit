@@ -6,29 +6,38 @@
 <h1 class="mt-4 mb-4">Dashboard</h1>
 <div class="row">
     <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Customers</h5>
-                <p class="card-text display-4">{{ total_customers }}</p>
+        <a href="{% url 'customers' %}" class="text-decoration-none text-reset">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Customers</h5>
+                    <p class="card-text display-4">{{ total_customers }}</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
+
     <div class="col-md-4">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Orders</h5>
-                <p class="card-text display-4">{{ total_orders }}</p>
+        <a class="text-decoration-none text-reset" href="{% url 'total_orders' %}">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Orders</h5>
+                    <p class="card-text display-4">{{ total_orders }}</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
+
     <div class="col-md-4">
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Pending Orders</h5>
-                <p class="card-text display-4">{{ pending_orders }}</p>
+        <a class="text-decoration-none text-reset">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Orders</h5>
+                    <p class="card-text display-4">{{ pending_orders }}</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
+
 </div>
 
 <div class="card mt-4">
