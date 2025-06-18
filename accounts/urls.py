@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, products, customer, status, customers
+from .views import *
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
   path('customer/<int:pk>/', customer, name='customer_detail'),
   path('products/', products, name='product'),
   path('status/', status, name='statuses'),
+  path('create_order/', create_order, name='create_order'),
 ]

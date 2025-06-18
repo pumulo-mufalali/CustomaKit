@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .form import OrderForm
  
 
 def dashboard(request):
@@ -52,3 +53,13 @@ def status(request):
   }
 
   return render(request, 'accounts/status.html', context)
+
+def create_order(request):
+  form = OrderForm()
+  if request.method == 'post':
+    form = OrderForm(request.post)
+    if form.is_valid():
+      form.save()
+      return redirect('/')
+    
+  return render(request, 'accounts/create_order.html', {'form':form})
