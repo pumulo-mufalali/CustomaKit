@@ -49,10 +49,10 @@
                 <tbody>
                     {% for order in recent_orders %}
                     <tr>
-                        <td>{{ order.customer.name }}</td>
+                        <td><a href="{% url 'customer_detail' order.customer.id %}">{{ order.customer.name }}</a></td>
                         <td>{{ order.product.name }}</td>
-                        <td>{{ order.date_created|date:"Y-m-d" }}</td>
-                        <td><span class="badge bg-{{ order.status.color }}">{{ order.status.name }}</span></td>
+                        <td>{{ order.created_at|date:"Y-m-d" }}</td>
+                        <td>{{ order.status }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -22,10 +22,10 @@ class Product(models.Model):
     ('Outdoor', 'Outdoor'),
   )
 
-  name = models.CharField(max_length=200, null=True)
+  name = models.CharField(max_length=70, null=True)
   price = models.FloatField(null=True)
-  category = models.CharField(max_length=200, null=True, choices=CATEGORY)
-  description = models.CharField(max_length=200, null=True)
+  category = models.CharField(max_length=50, null=True, choices=CATEGORY)
+  description = models.CharField(max_length=100, null=True)
   created_at = models.DateTimeField(auto_now_add=True)
   tags = models.ManyToManyField(Tag)
 
