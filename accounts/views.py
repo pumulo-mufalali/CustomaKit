@@ -17,7 +17,7 @@ def dashboard(request):
   }
   return render(request, 'accounts/dashboard.html', context)
 
-def total_orders(request):
+def totalOrders(request):
   total_orders = Order.objects.all()
   return render(request, 'accounts/total_orders.html', {'total_orders':total_orders})
 
@@ -57,7 +57,7 @@ def status(request):
 
   return render(request, 'accounts/status.html', context)
 
-def create_order(request):
+def createOrder(request):
   form = OrderForm()
   if request.method == 'POST':
     form = OrderForm(request.POST)
@@ -67,7 +67,18 @@ def create_order(request):
     
   return render(request, 'accounts/create_order.html', {'form':form})
 
-def create_customer(request):
+def updateOrder(request, pk):
+  order = Order.objects.get(id=pk)
+  form = OrderForm(instance=order)
+  if request.method == 'POST':
+    form = OrderForm(request.POST, instance=order)
+    if form.is_valid():
+      form.save()
+      return redirect('/')
+    
+  return render(request, 'accounts/create_order.html', {'form':form})
+
+def createCustomer(request):
   form = CustomerForm()
   if request.method == 'POST':
     form = CustomerForm(request.POST)

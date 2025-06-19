@@ -21,6 +21,7 @@
                         <th>Product</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,14 @@
                         <td>{{ order.product }}</td>
                         <td>{{ order.created_at|date:"Y-m-d" }}</td>
                         <td>{{ order.status }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary me-1" href="{% url 'update_order' order.id %}">
+                                <i class="fas fa-edit"></i> Update
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

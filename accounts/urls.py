@@ -9,8 +9,9 @@ urlpatterns = [
   path('status/', status, name='statuses'),
 
   path('customers/', customers, name='customers'),
-  path('orders/', total_orders, name='total_orders'),
+  path('orders/', totalOrders, name='total_orders'),
 
-  path('create_order/', create_order, name='create_order'),
-  path('create_customer/', create_customer, name='create_customer'),
+  path('create_order/', createOrder, name='create_order'),
+  path('update_order/<int:pk>/', updateOrder, name='update_order'),
+  path('create_customer/', createCustomer, name='create_customer'),
 ]
