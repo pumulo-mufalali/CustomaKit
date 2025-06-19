@@ -1,7 +1,7 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
 
-{% block title %}Customer Management{% endblock %}
+{% block title %}Customer Management System{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/css/customer.css' %}">
@@ -16,7 +16,7 @@
 
 <div class="action-buttons mb-4">
     <button class="btn btn-primary me-2" id="updateCustomerBtn">
-        <i class="fas fa-edit me-1"></i> Update Customer
+        <a class="btn btn-primary" href="{% url 'create_order' customer.id %}"><i class="fas fa-edit me-1" hre></i> Place Order</a>
     </button>
     <button class="btn btn-danger" id="deleteCustomerBtn">
         <i class="fas fa-trash me-1"></i> Delete Customer

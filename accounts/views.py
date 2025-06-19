@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .form import OrderForm, CustomerForm
+from django.forms import inlineformset_factory
  
 
 def dashboard(request):
@@ -57,15 +58,17 @@ def status(request):
 
   return render(request, 'accounts/status.html', context)
 
-def createOrder(request):
-  form = OrderForm()
+def createOrder(request, pk):
+  OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'))
+  customer = Customer.objects.get(id=pk)
+  formset = OrderFormSet(instance=customer)
   if request.method == 'POST':
     form = OrderForm(request.POST)
     if form.is_valid():
       form.save()
       return redirect('/')
     
-  return render(request, 'accounts/create_order.html', {'form':form})
+  return render(request, 'accounts/create_order.html', {'formset':formset})
 
 def updateOrder(request, pk):
   order = Order.objects.get(id=pk)
@@ -98,9 +101,8 @@ def createCustomer(request):
     
   return render(request, 'accounts/create_customer.html', {'form':form})
 
-def updateCustomer(request, pk):
-  customer = Customer.objects.get(id=pk)
-  form = CustomerForm(instance=customer)
-  if request.method == 'POST':
-    form = CustomerForm(request.POST, instance=customer)
-    
+# def updateCustomer(request, pk):
+#   customer = Customer.objects.get(id=pk)
+#   form = CustomerForm(instance=customer)
+#   if request.method == 'POST':
+#     form = CustomerForm(request.POST, instance=customer)

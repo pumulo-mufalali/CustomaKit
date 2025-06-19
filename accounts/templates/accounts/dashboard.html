@@ -44,7 +44,7 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h2>Recent Orders</h2>
-            <a class="btn btn-primary" href="{% url 'create_order' %}">
+            <a class="btn btn-primary" >
                 <i class="fas fa-plus me-1"></i>Place Order
             </a>
         </div>
@@ -66,7 +66,7 @@
                     <tr>
                         <td><a href="{% url 'customer_detail' order.customer.id %}">{{ order.customer.name }}</a></td>
                         <td>{{ order.product.name }}</td>
-                        <td>{{ order.created_at|date:"Y-m-d" }}</td>
+                        <td>{{ order.created_at }}</td>
                         <td>{{ order.status }}</td>
                         <td>
                             <a class="btn btn-sm btn-outline-primary me-1" href="{% url 'update_order' order.id %}">
