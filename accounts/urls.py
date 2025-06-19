@@ -13,5 +13,6 @@ urlpatterns = [
 
   path('create_order/', createOrder, name='create_order'),
   path('update_order/<int:pk>/', updateOrder, name='update_order'),
+  path('delete_order/<int:pk>/', deleteOrder, name='delete'),
   path('create_customer/', createCustomer, name='create_customer'),
 ]

@@ -35,7 +35,7 @@
                             <a class="btn btn-sm btn-outline-primary me-1" href="{% url 'update_order' order.id %}">
                                 <i class="fas fa-edit"></i> Update
                             </a>
-                            <a class="btn btn-sm btn-outline-danger">
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'delete' order.id %}">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                         </td>

@@ -78,6 +78,16 @@ def updateOrder(request, pk):
     
   return render(request, 'accounts/create_order.html', {'form':form})
 
+def deleteOrder(request, pk):
+  order = Order.objects.get(id=pk)
+  name = order.product
+
+  if request.method == 'POST':
+    order.delete()
+    return redirect('/')
+  
+  return render(request, 'accounts/delete_order.html', {'item':name})
+
 def createCustomer(request):
   form = CustomerForm()
   if request.method == 'POST':
@@ -87,3 +97,10 @@ def createCustomer(request):
       return redirect('customers')
     
   return render(request, 'accounts/create_customer.html', {'form':form})
+
+def updateCustomer(request, pk):
+  customer = Customer.objects.get(id=pk)
+  form = CustomerForm(instance=customer)
+  if request.method == 'POST':
+    form = CustomerForm(request.POST, instance=customer)
+    
