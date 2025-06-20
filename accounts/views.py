@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .form import OrderForm, CustomerForm
 from django.forms import inlineformset_factory
@@ -59,26 +59,32 @@ def status(request):
   return render(request, 'accounts/status.html', context)
 
 def createOrder(request, pk):
-  OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'))
-  customer = Customer.objects.get(id=pk)
-  formset = OrderFormSet(instance=customer)
+  OrderFormSet = inlineformset_factory(Customer, Order, extra=2, fields=('product', 'status'))
+  customer = get_object_or_404(Customer, id=pk)
+  
   if request.method == 'POST':
-    form = OrderForm(request.POST)
-    if form.is_valid():
-      form.save()
+    formset = OrderFormSet(request.POST, instance=customer, queryset=Order.objects.none())
+    if formset.is_valid():
+      formset.save()
       return redirect('/')
+  else:
+    formset = OrderFormSet(
+      queryset=Order.objects.none(), 
+      instance=customer,
+    )
     
   return render(request, 'accounts/create_order.html', {'formset':formset})
 
 def updateOrder(request, pk):
   order = Order.objects.get(id=pk)
-  form = OrderForm(instance=order)
+  
   if request.method == 'POST':
     form = OrderForm(request.POST, instance=order)
     if form.is_valid():
       form.save()
       return redirect('/')
-    
+  else:
+    form = OrderForm(instance=order)
   return render(request, 'accounts/create_order.html', {'form':form})
 
 def deleteOrder(request, pk):
@@ -101,8 +107,8 @@ def createCustomer(request):
     
   return render(request, 'accounts/create_customer.html', {'form':form})
 
-# def updateCustomer(request, pk):
-#   customer = Customer.objects.get(id=pk)
-#   form = CustomerForm(instance=customer)
-#   if request.method == 'POST':
-#     form = CustomerForm(request.POST, instance=customer)
+def updateCustomer(request, pk):
+  customer = Customer.objects.get(id=pk)
+  form = CustomerForm(instance=customer)
+  if request.method == 'POST':
+    form = CustomerForm(request.POST, instance=customer)
