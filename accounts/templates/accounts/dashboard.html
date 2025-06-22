@@ -7,10 +7,10 @@
 <div class="row">
     <div class="col-md-4">
         <a href="{% url 'customers' %}" class="text-decoration-none text-reset">
-            <div class="card text-white bg-primary mb-3">
+            <div class="card text-white mb-3" style="background-color: #0a7add;">
                 <div class="card-body">
                     <h5 class="card-title">Total Customers</h5>
-                    <p class="card-text display-4">{{ total_customers }}</p>
+                    <p class="card-text display-4"><strong>{{ total_customers }}</strong></p>
                 </div>
             </div>
         </a>
@@ -18,10 +18,10 @@
 
     <div class="col-md-4">
         <a class="text-decoration-none text-reset" href="{% url 'total_orders' %}">
-            <div class="card text-white bg-success mb-3">
+            <div class="card text-white mb-3" style="background-color: #0a7add;">
                 <div class="card-body">
                     <h5 class="card-title">Total Orders</h5>
-                    <p class="card-text display-4">{{ total_orders }}</p>
+                    <p class="card-text display-4"><strong>{{ total_orders }}</strong></p>
                 </div>
             </div>
         </a>
@@ -29,10 +29,10 @@
 
     <div class="col-md-4">
         <a class="text-decoration-none text-reset">
-            <div class="card text-white bg-info mb-3">
+            <div class="card text-white mb-3" style="background-color:#0a7add;">
                 <div class="card-body">
                     <h5 class="card-title">Pending Orders</h5>
-                    <p class="card-text display-4">{{ pending_orders }}</p>
+                    <p class="card-text display-4"><strong>{{ pending_orders }}</strong></p>
                 </div>
             </div>
         </a>
@@ -49,6 +49,19 @@
             </a>
         </div>
     </div>
+</div>
+
+<div class="card-header">
+    <form method="get" class="form-row">
+        {% for filter in myFilter.form %}
+            {{filter.label_tag}}
+            {{ filter }}
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Filter</button>
+    </form>
+</div>
+
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped">

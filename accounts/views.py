@@ -1,20 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .form import OrderForm, CustomerForm
+from .form import OrderForm, CustomerForm, CreateUserForm
 from django.forms import inlineformset_factory
- 
+from .filters import OrderFilter
+
+from django.contrib import messages
+
+
+def loginPage(request):
+  # form = 
+  context = {}
+  return render(request, 'accounts/login.html', context)
+
+def registerPage(request):
+  form = CreateUserForm()
+  if request.method == 'POST':
+    form = CreateUserForm(request.POST)
+    if form.is_valid():
+      form.save()
+      user = form.cleaned_data.get('username')
+      messages.success(request, 'An account for ' + user + ' was created')
+      return redirect('login')
+    
+  context = {'form':form}
+  return render(request, 'accounts/register.html', context)
 
 def dashboard(request):
   order_list = Order.objects.all()
   total_customers = Customer.objects.all().count()
   pending_orders = order_list.filter(status='pending').count()
   total_orders = order_list.count()
+  myFilter = OrderFilter(request.GET, queryset=order_list)
+  order_list = myFilter.qs
 
   context = {
     'pending_orders': pending_orders,
     'total_orders':total_orders,
     'total_customers': total_customers,
     'recent_orders':order_list,
+    'myFilter':myFilter,
   }
   return render(request, 'accounts/dashboard.html', context)
 
