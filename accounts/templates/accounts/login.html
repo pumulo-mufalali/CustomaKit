@@ -107,7 +107,9 @@
 
 				</div>
 		
-        {{messages}}
+        {% for message in messages %}
+          <p id="messages">{{message}}</p>
+        {% endfor %}
 
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
