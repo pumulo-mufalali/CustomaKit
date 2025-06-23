@@ -5,6 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            {% if request.user.is_staff %}
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
@@ -19,6 +20,7 @@
                     <a class="nav-link" href="{% url 'statuses' %}">Status</a>
                 </li>
             </ul>
+            {% endif %}
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Hello, {{request.user}}</a>
