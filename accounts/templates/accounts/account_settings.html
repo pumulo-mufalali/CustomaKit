@@ -1,0 +1,39 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .profile-pic {
+        max-width: 200px;
+        max-height: 200px;
+        margin: auto;
+        border-radius: 50%;
+        display: block;
+    }
+</style>
+
+<br>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">⬅ Back to Profile</a>
+            <hr>
+            <h3 class="text-center">Account Settings</h3>
+            <img class="profile-pic" src="#" alt="Profile Picture">
+        </div>
+    </div>
+
+  
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Update Information</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

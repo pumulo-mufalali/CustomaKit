@@ -4,25 +4,26 @@
 
 {% block content %}
 <h1 class="mt-4 mb-4">Order Status</h1>
+<h5 class="mt-4 mb-4">Total orders - <strong>{{orders}}</strong></h5>
 
 <div class="row">
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Delivered Products</h5>
+                <h5 class="card-title"><strong>Delivered Products</strong></h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr><th>Product</th></tr>
+                            <th>Customer</th>
+                            <th>Product</th>
                         </thead>
                         <tbody>
-                            {% for items in delivered %}
-                                <tr>
-                                    <td>{{ items }}</td>
-                                </tr>
-                            {% empty %}
-                                <tr><td>No delivered products.</td></tr>
-                            {% endfor %}
+                                {% for order in delivered_orders %}
+                                    <tr>
+                                        <td>{{ order.customer.name }}</td>
+                                        <td>{{ order.product.name }}</td>
+                                    </tr>
+                                {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -33,20 +34,20 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">In-transit Products</h5>
+                <h5 class="card-title"><strong>In-transit Products</strong></h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr><th>Product</th></tr>
+                            <th>Customer</th>
+                            <th>Product</th>
                         </thead>
                         <tbody>
-                            {% for items in in_transit %}
-                                <tr>
-                                    <td>{{ items }}</td>
-                                </tr>
-                            {% empty %}
-                                <tr><td>No in-transit products.</td></tr>
-                            {% endfor %}
+                                {% for order in intransit_orders %}
+                                    <tr>
+                                        <td>{{ order.customer.name }}</td>
+                                        <td>{{ order.product.name }}</td>
+                                    </tr>
+                                {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -57,20 +58,20 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Pending Products</h5>
+                <h5 class="card-title"><strong>Pending Products</strong></h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr><th>Product</th></tr>
+                            <th>Customer</th>
+                            <th>Product</th>
                         </thead>
                         <tbody>
-                            {% for items in pending_status %}
-                                <tr>
-                                    <td>{{ items }}</td>
-                                </tr>
-                            {% empty %}
-                                <tr><td>No pending products.</td></tr>
-                            {% endfor %}
+                                {% for order in pending_orders %}
+                                    <tr>
+                                        <td>{{ order.customer.name }}</td>
+                                        <td>{{ order.product.name }}</td>
+                                    </tr>
+                                {% endfor %}
                         </tbody>
                     </table>
                 </div>

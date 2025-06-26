@@ -49,6 +49,12 @@ def registerPage(request):
   context = {'form':form}
   return render(request, 'accounts/register.html', context)
 
+@login_required(login_url='login')
+@allowed_user(allowed_roles='customer')
+def settingsPage(request):
+  context = {}
+  return render(request, 'accounts/account_settings.html', context)
+
 
 def userPage(request):
   context = {}
@@ -114,15 +120,16 @@ def products(request):
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin'])
 def status(request):
-  orders = Order.objects.all()
-  pending_status = Product.objects.filter(order__status='pending')
-  in_transit = Product.objects.filter(order__status='Out for delivery')
-  delivered = Product.objects.filter(order__status='delivered')
+  orders = Order.objects.all().count()
+  intransit_orders = Order.objects.filter(status='Out for delivery')
+  pending_orders = Order.objects.filter(status='pending')
+  delivered_orders = Order.objects.filter(status='delivered')
 
   context = {
-    'pending_status':pending_status,
-    'in_transit':in_transit,
-    'delivered':delivered,
+    'orders':orders,
+    'intransit_orders':intransit_orders,
+    'pending_orders':pending_orders,
+    'delivered_orders':delivered_orders,
   }
 
   return render(request, 'accounts/status.html', context)
