@@ -105,26 +105,9 @@ def totalOrders(request):
   return render(request, 'accounts/total_orders.html', {'total_orders':total_orders})
 
 
-@login_required(login_url='login')
-@allowed_user(allowed_roles=['admin'])
-def customer(request, pk):
-  customers = Customer.objects.all()
-  customer_name = Customer.objects.get(id=pk)
-  order = customer_name.order_set.all()
-
-  context = {
-    'customers':customers,
-    'customer':customer_name,
-    'orders':order,
-  }
-  return render(request, 'accounts/customer.html', context)
 
 
-@login_required(login_url='login')
-@allowed_user(allowed_roles=['admin'])
-def customers(request):
-  customers = Customer.objects.all()
-  return render(request, 'accounts/customers.html', {'customers':customers})
+
 
 
 @login_required(login_url='login')
@@ -198,25 +181,3 @@ def deleteOrder(request, pk):
     return redirect('/')
   
   return render(request, 'accounts/delete_order.html', {'item':name})
-
-
-@login_required(login_url='login')
-@allowed_user(allowed_roles=['admin'])
-def createCustomer(request):
-  form = CustomerForm()
-  if request.method == 'POST':
-    form = CustomerForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('customers')
-    
-  return render(request, 'accounts/create_customer.html', {'form':form})
-
-
-@login_required(login_url='login')
-@allowed_user(allowed_roles=['admin'])
-def updateCustomer(request, pk):
-  customer = Customer.objects.get(id=pk)
-  form = CustomerForm(instance=customer)
-  if request.method == 'POST':
-    form = CustomerForm(request.POST, instance=customer)
