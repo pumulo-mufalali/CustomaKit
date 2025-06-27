@@ -1,6 +1,43 @@
+{% extends 'accounts/main.html' %}
 
-{% include 'accounts/status.html' %}
+{% block title %}Order Status{% endblock %}
 
 {% block content %}
+<h1 class="mt-4 mb-4">Order Status</h1>
+<h5 class="mt-4 mb-4">Total orders - <strong>{{total_orders}}</strong></h5>
 
+<div class="row">
+    <div class="col-md-4">
+        <div class="card" style="background-color: #add8e6;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Delivered Products</strong></h5>
+                <div class="table-responsive">
+                    <h3>{{delivered}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card" style="background-color: #add8e6;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Pending Products</strong></h5>
+                <div class="table-responsive">
+                    <h3>{{pending}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card" style="background-color: #add8e6;">
+          <div class="card-body">
+              <h5 class="card-title"><strong>Intransit Products</strong></h5>
+              <div class="table-responsive">
+                  <h3>{{intransit}}</h3>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
 {% endblock %}

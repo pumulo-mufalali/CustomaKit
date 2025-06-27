@@ -16,18 +16,22 @@
 
 <div class="row">
     <div class="col-md-3">
-        <div class="card card-body">
+        <div class="card card-body" style="background-color: #e9e8e8;">
             <a href="{% url 'dashboard' %}" class="btn btn-primary">⬅ Back to Profile</a>
             <hr>
             <h3 class="text-center">Account Settings</h3>
-            <img class="profile-pic" src="#" alt="Profile Picture">
+            {% if request.user.customer.profile_pic %}
+                <img class="profile-pic" src="{{request.user.customer.profile_pic.url}}" alt="Profile Picture">
+            {% else %}
+                <img class="profile-pic" src="{{ request.user.profile.profile_pic.url|default:'/static/images/family.jpg' }}" alt="Profile Pic">
+            {% endif %}
         </div>
     </div>
 
   
     <div class="col-md-9">
-        <div class="card card-body">
-            <form method="POST" action="">
+        <div class="card card-body" style="background-color: #e9e8e8;">
+            <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-primary">Update Information</button>

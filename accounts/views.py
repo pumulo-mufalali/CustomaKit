@@ -52,12 +52,32 @@ def registerPage(request):
 @login_required(login_url='login')
 @allowed_user(allowed_roles='customer')
 def settingsPage(request):
-  context = {}
+  customer = request.user.customer
+  form = CustomerForm(instance=customer)
+
+  if request.method == 'POST':
+    form = CustomerForm(request.POST, request.FILES, instance=customer)
+    if form.is_valid():
+      form.save()
+      return redirect('settings')
+  context = {'form':form}
   return render(request, 'accounts/account_settings.html', context)
 
 
 def userPage(request):
-  context = {}
+  order = request.user.customer.order_set.all()
+
+  total_orders = order.count
+  intransit = order.filter(status='Out for delivery').count()
+  delivered = order.filter(status='delivered').count()
+  pending = order.filter(status='pending').count()
+  
+  context = {
+    'total_orders':total_orders,
+    'intransit':intransit,
+    'delivered':delivered,
+    'pending':pending,
+  }
   return render(request, 'accounts/user.html', context)
 
 
