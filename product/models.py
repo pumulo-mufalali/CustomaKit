@@ -8,14 +8,8 @@ class Tag(models.Model):
     return self.name
 
 class Product(models.Model):
-  CATEGORY = (
-    ('Indoor', 'Indoor'),
-    ('Outdoor', 'Outdoor'),
-  )
-
   name = models.CharField(max_length=70, null=True)
   price = models.FloatField(null=True)
-  category = models.CharField(max_length=50, null=True, choices=CATEGORY)
   description = models.CharField(max_length=100, null=True)
   created_at = models.DateTimeField(auto_now_add=True)
   tags = models.ManyToManyField(Tag)
@@ -27,7 +21,7 @@ class Product(models.Model):
 class Order(models.Model):
   STATUS = (
     ('delivered', 'delivered'),
-    ('Out for delivery', 'Out for delivery'),
+    ('Intransit', 'Intransit'),
     ('pending', 'pending'),
   )
 

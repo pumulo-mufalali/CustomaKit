@@ -66,7 +66,7 @@ def userPage(request):
   order = request.user.customer.order_set.all()
 
   total_orders = order.count
-  intransit = order.filter(status='Out for delivery').count()
+  intransit = order.filter(status='Intransit').count()
   delivered = order.filter(status='delivered').count()
   pending = order.filter(status='pending').count()
   

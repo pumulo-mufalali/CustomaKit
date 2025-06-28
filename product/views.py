@@ -27,7 +27,7 @@ def products(request):
 @allowed_user(allowed_roles=['admin'])
 def status(request):
   orders = Order.objects.all().count()
-  intransit_orders = Order.objects.filter(status='Out for delivery')
+  intransit_orders = Order.objects.filter(status='Intransit')
   pending_orders = Order.objects.filter(status='pending')
   delivered_orders = Order.objects.filter(status='delivered')
 
@@ -44,7 +44,7 @@ def status(request):
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin'])
 def createOrder(request, pk):
-  OrderFormSet = inlineformset_factory(Customer, Order, extra=2, fields=('product', 'status'))
+  OrderFormSet = inlineformset_factory(Customer, Order, extra=4, fields=('product', 'status'))
   customer = get_object_or_404(Customer, id=pk)
   
   if request.method == 'POST':
@@ -92,6 +92,9 @@ def deleteOrder(request, pk):
   
   return render(request, 'product/delete_order.html', {'item':name})
 
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin'])
 def deleteProduct(request, pk):
   product = Product.objects.get(id=pk)
   name = product.name
@@ -102,6 +105,9 @@ def deleteProduct(request, pk):
   
   return render(request, 'product/delete_order.html', {'item':name})
 
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin'])
 def createProduct(request):
   form = ProductForm()
   if request.method == 'POST':
