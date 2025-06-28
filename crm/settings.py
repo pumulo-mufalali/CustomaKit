@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts.apps.AccountsConfig',
+    'product.apps.ProductConfig',
+    'customer.apps.CustomerConfig',
 
     'django_filters',
 ]
@@ -59,7 +61,9 @@ ROOT_URLCONF = 'crm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+          Path(BASE_DIR) / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILE_DIRS = [
-  os.path.join(BASE_DIR, 'accounts/static')
+  os.path.join(BASE_DIR, 'static')
 ]
 
 MEDIA_URL = 'images/'

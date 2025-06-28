@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_user
 from .models import Order, Product
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import OrderForm
+from .forms import OrderForm, ProductForm
 from django.forms import inlineformset_factory
 from customer.models import Customer
 
@@ -11,14 +11,16 @@ from customer.models import Customer
 @allowed_user(allowed_roles=['admin'])
 def totalOrders(request):
   total_orders = Order.objects.all()
-  return render(request, 'accounts/total_orders.html', {'total_orders':total_orders})
+  return render(request, 'product/total_orders.html', {'total_orders':total_orders})
 
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin'])
 def products(request):
   list = Product.objects.all()
-  return render(request, 'accounts/products.html', {'product': list})
+
+
+  return render(request, 'product/products.html', {'product': list})
 
 
 @login_required(login_url='login')
@@ -36,7 +38,7 @@ def status(request):
     'delivered_orders':delivered_orders,
   }
 
-  return render(request, 'accounts/status.html', context)
+  return render(request, 'product/status.html', context)
 
 
 @login_required(login_url='login')
@@ -56,7 +58,7 @@ def createOrder(request, pk):
       instance=customer,
     )
     
-  return render(request, 'accounts/create_order.html', {'formset':formset})
+  return render(request, 'product/create_order.html', {'formset':formset})
 
 
 @login_required(login_url='login')
@@ -71,7 +73,11 @@ def updateOrder(request, pk):
       return redirect('/')
   else:
     form = OrderForm(instance=order)
-  return render(request, 'accounts/create_order.html', {'form':form})
+
+  context = {
+    'form':form,
+  }
+  return render(request, 'product/create_order.html', context)
 
 
 @login_required(login_url='login')
@@ -84,4 +90,25 @@ def deleteOrder(request, pk):
     order.delete()
     return redirect('/')
   
-  return render(request, 'accounts/delete_order.html', {'item':name})
+  return render(request, 'product/delete_order.html', {'item':name})
+
+def deleteProduct(request, pk):
+  product = Product.objects.get(id=pk)
+  name = product.name
+
+  if request.method == 'POST':
+    product.delete()
+    return redirect('product_list')
+  
+  return render(request, 'product/delete_order.html', {'item':name})
+
+def createProduct(request):
+  form = ProductForm()
+  if request.method == 'POST':
+    form = ProductForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('product_list')
+
+  context = {'form':form}
+  return render(request, 'product/create_product.html', context)

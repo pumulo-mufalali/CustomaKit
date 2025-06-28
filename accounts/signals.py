@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
-from .models import Customer
-
-
+from customer.models import Customer
 
 def customer_profile(sender, instance, created, **kwargs):
   if created:
