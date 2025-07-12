@@ -65,12 +65,14 @@ def settingsPage(request):
 def userPage(request):
   order = request.user.customer.order_set.all()
 
+  # price += request.user.product.price
   total_orders = order.count
   intransit = order.filter(status='Intransit').count()
   delivered = order.filter(status='delivered').count()
   pending = order.filter(status='pending').count()
   
   context = {
+    # 'price':price,
     'total_orders':total_orders,
     'intransit':intransit,
     'delivered':delivered,

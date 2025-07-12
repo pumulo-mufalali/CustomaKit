@@ -3,6 +3,7 @@ from accounts.decorators import allowed_user
 from django.contrib.auth.decorators import login_required
 from .forms import CustomerForm
 from .models import Customer
+from product.models import Order
 
 # @login_required(login_url='login')
 # @allowed_user(allowed_roles=['admin'])
@@ -27,8 +28,15 @@ def customer(request, pk):
   customer_name = Customer.objects.get(id=pk)
   order = customer_name.order_set.all()
 
+  total_order=0.0
+  orders = Order.objects.filter(customer_id=pk)
+
+  for item in orders:
+    total_order += item.product.price
+
   context = {
     'customers':customers,
+    'total_order':total_order,
     'customer':customer_name,
     'orders':order,
   }

@@ -45,7 +45,7 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Total Orders</h2>
+            <h2>Total Orders - ZMW {{total_order}}</h2>
             <div class="search-box">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." id="orderSearch">
@@ -62,7 +62,7 @@
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th>Category</th>
+                        <th>price</th>
                         <th>Date Ordered</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -72,7 +72,7 @@
                     {% for order in orders %}
                     <tr>
                         <td>{{ order.product.name }}</td>
-                        <td>{{ order.product.category }}</td>
+                        <td>{{ order.product.price }}</td>
                         <td>{{ order.created_at|date:"Y-m-d" }}</td>
                         <td>{{ order.status }}</td>
                         <td>

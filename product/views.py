@@ -49,6 +49,7 @@ def createOrder(request, pk):
   
   if request.method == 'POST':
     formset = OrderFormSet(request.POST, instance=customer, queryset=Order.objects.none())
+
     if formset.is_valid():
       formset.save()
       return redirect('/')
@@ -57,8 +58,12 @@ def createOrder(request, pk):
       queryset=Order.objects.none(), 
       instance=customer,
     )
+
+  context = {
+    'formset':formset,
+  }
     
-  return render(request, 'product/create_order.html', {'formset':formset})
+  return render(request, 'product/create_order.html', context)
 
 
 @login_required(login_url='login')
