@@ -6,9 +6,6 @@ CustomaKit is a Django-based web application designed to manage customer orders 
 
 ![CustomaKit Screenshot](screenshots/Customers_profile.png)
 
-> _Example: Admin dashboard showing customer orders._  
-> *(Replace `dashboard.png` with your actual image filename and place it in a `screenshots/` folder in your project root.)*
-
 ## Features
 
 - Customer registration and management
