@@ -1,34 +1,11 @@
-from django.db import models
-from customer.models import Customer
+target = 7
 
-class Tag(models.Model):
-  name = models.CharField(max_length=200, null=True)
-
-  def __str__(self):
-    return self.name
-
-class Product(models.Model):
-  name = models.CharField(max_length=70, null=True)
-  price = models.FloatField(null=True)
-  description = models.CharField(max_length=100, null=True)
-  created_at = models.DateTimeField(auto_now_add=True)
-  tags = models.ManyToManyField(Tag)
-
-  def __str__(self):
-    return self.name
-
-
-class Order(models.Model):
-  STATUS = (
-    ('delivered', 'delivered'),
-    ('Intransit', 'Intransit'),
-    ('pending', 'pending'),
-  )
-
-  customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
-  product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
-  status = models.CharField(max_length=100, null=True, choices=STATUS)
-  created_at = models.DateTimeField(auto_now_add=True)
-
-  def __str__(self):
-    return self.status
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+i = 0
+for item in nums:
+    for second_item in nums:
+        i += 1
+        if nums.count() < i:
+            second_item = nums[i]
+            if item + second_item == 7:
+                print(f'{item}, {second_item}')
